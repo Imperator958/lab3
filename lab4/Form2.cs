@@ -42,13 +42,14 @@ namespace lab4
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Complete complete = new Complete();
-                complete.Name = textBox1.Text;
-                complete.Genre = textBox2.Text;
+
+            form1.complete.Add(new Complete() { Name = textBox1.Text, Genre = textBox2.Text, Publisher = textBox3.Text, Price = textBox4.Text, Data = textBox5.Text });
+                /*complete.Genre = textBox2.Text;
                 complete.Publisher = textBox3.Text;
                 complete.Price = textBox4.Text;
                 complete.Data = textBox5.Text;
-                form1.AddRow(complete.Name, complete.Genre, complete.Publisher, complete.Price, complete.Data);
+                form1.AddRow(complete.Name, complete.Genre, complete.Publisher, complete.Price, complete.Data);*/
+
         }
     }
 }

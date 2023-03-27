@@ -1,10 +1,14 @@
+using System.ComponentModel;
+
 namespace lab4
 {
     public partial class Form1 : Form
     {
+        public BindingList<Complete> complete = new BindingList<Complete>();
         public Form1()
         {
             InitializeComponent();
+            dataGridView1.DataSource = complete;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -59,7 +63,7 @@ namespace lab4
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void dataGridView1_DefaultValuesNeeded(object sender, System.Windows.Forms.DataGridViewRowEventArgs e)
@@ -67,9 +71,9 @@ namespace lab4
 
         }
 
-        public void AddRow(string Name, string Genre, string Publisher, string Price, string Data)
+        public void AddRow(BindingList<Complete> complete)
         {
-            dataGridView1.Rows.Add(Name, Genre, Publisher, Price, Data);
+            //dataGridView1.Rows.Add(Name, Genre, Publisher, Price, Data);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -132,7 +136,7 @@ namespace lab4
         }
         void readFile()
         {
-            var lines = File.ReadAllLines(@"C:\Users\HP\OneDrive\Pulpit\Visual_Studio\lab4\lab4\bin\Debug\net6.0-windows\Output.csv");
+            var lines = File.ReadAllLines(@"Output.csv");
             foreach (var line in lines)
             {
                 var cell = line.Split(',');
