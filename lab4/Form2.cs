@@ -51,5 +51,10 @@ namespace lab4
                 form1.AddRow(complete.Name, complete.Genre, complete.Publisher, complete.Price, complete.Data);*/
 
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

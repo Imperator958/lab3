@@ -1,16 +1,19 @@
 using System.ComponentModel;
+using System.Data;
+using System.Xml.Serialization;
 
 namespace lab4
 {
     public partial class Form1 : Form
     {
         public BindingList<Complete> complete = new BindingList<Complete>();
+        private DataView dv;
+
         public Form1()
         {
             InitializeComponent();
             dataGridView1.DataSource = complete;
         }
-
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -136,25 +139,77 @@ namespace lab4
         }
         void readFile()
         {
-            var lines = File.ReadAllLines(@"Output.csv");
-            foreach (var line in lines)
+            try
             {
-                var cell = line.Split(',');
-                if (cell.Length == 6)
+                var lines = File.ReadAllLines(@"Output.csv");
+                foreach (var line in lines)
                 {
-                    
-                    var load = new Complete() { Name = cell[0], Genre = cell[1], Publisher = cell[2], Price = cell[3], Data = cell[4] };
-                    dataGridView1.Rows.Add(load.Name, load.Genre, load.Publisher, load.Price, load.Data);
+                    var cell = line.Split(',');
+                    if (cell.Length == 6)
+                    {
+
+                        var load = new Complete() { Name = cell[0], Genre = cell[1], Publisher = cell[2], Price = cell[3], Data = cell[4] };
+                        dataGridView1.Rows.Add(load.Name, load.Genre, load.Publisher, load.Price, load.Data);
+                    }
                 }
+                dataGridView1.Rows.RemoveAt(dataGridView1.RowCount - 2);
+                dataGridView1.Rows.RemoveAt(0);
             }
-            dataGridView1.Rows.RemoveAt(dataGridView1.RowCount-2);
-            dataGridView1.Rows.RemoveAt(0);
+            catch(System.IO.FileNotFoundException)
+            {
+                MessageBox.Show("Nie istnieje taki plik!");
+            }
 
         }
 
         private void button4_Click_1(object sender, EventArgs e)
         {
             readFile();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(BindingList<Complete>));
+            using(var writer = new StreamWriter("Output.xml"))
+            {
+                serializer.Serialize(writer, complete);
+                MessageBox.Show("Zapisano plik!");
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(BindingList<Complete>));
+            using (FileStream stream = File.OpenRead("Output.xml"))
+            {
+                BindingList<Complete> deserializedList = (BindingList<Complete>)serializer.Deserialize(stream);
+            }
+            DataSet dataset = new DataSet();
+            dataset.ReadXml(@"Output.xml");
+            dataGridView1.DataSource = dataset.Tables[0];  
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Form3 form3 = new Form3(this);
+            form3.Show();
+        }
+
+        public void DeleteFilter()
+        {
+            (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = string.Format("Name LIKE '%{0}%'", "");
+        }
+
+        public void Filter(string text)
+        {
+            try
+            {
+                (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = string.Format("Name LIKE '%{0}%'", text);
+            }
+            catch(System.NullReferenceException)
+            {
+                MessageBox.Show("Nie wprowadzono ¿adnych pozycji do tabeli!");
+            }
         }
     }
 }
