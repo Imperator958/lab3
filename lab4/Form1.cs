@@ -7,7 +7,6 @@ namespace lab4
     public partial class Form1 : Form
     {
         public BindingList<Complete> complete = new BindingList<Complete>();
-        private DataView dv;
 
         public Form1()
         {
@@ -180,36 +179,18 @@ namespace lab4
         private void button5_Click(object sender, EventArgs e)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(BindingList<Complete>));
-            using (FileStream stream = File.OpenRead("Output.xml"))
+            using (var reader = new StreamReader("Output.xml"))
             {
-                BindingList<Complete> deserializedList = (BindingList<Complete>)serializer.Deserialize(stream);
+                complete = (BindingList<Complete>)serializer.Deserialize(reader);
+                dataGridView1.DataSource = complete;
             }
-            DataSet dataset = new DataSet();
-            dataset.ReadXml(@"Output.xml");
-            dataGridView1.DataSource = dataset.Tables[0];  
+
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-            Form3 form3 = new Form3(this);
+            Form3 form3 = new Form3(complete);
             form3.Show();
-        }
-
-        public void DeleteFilter()
-        {
-            (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = string.Format("Name LIKE '%{0}%'", "");
-        }
-
-        public void Filter(string text)
-        {
-            try
-            {
-                (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = string.Format("Name LIKE '%{0}%'", text);
-            }
-            catch(System.NullReferenceException)
-            {
-                MessageBox.Show("Nie wprowadzono ¿adnych pozycji do tabeli!");
-            }
         }
     }
 }

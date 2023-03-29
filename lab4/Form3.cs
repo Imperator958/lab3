@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,11 +13,13 @@ namespace lab4
 {
     public partial class Form3 : Form
     {
-        Form1 form1;
-        public Form3(Form1 form3)
+        private BindingList<Complete> listform3 = new BindingList<Complete>();
+        public Form3(BindingList<Complete> dane)
         {
             InitializeComponent();
-            this.form1 = form3;
+            listform3 = dane;
+            dataGridView1.DataSource = listform3;
+            
         }
 
         private void Form3_Load(object sender, EventArgs e)
@@ -26,7 +29,7 @@ namespace lab4
 
         private void button1_Click(object sender, EventArgs e)
         {
-            form1.Filter(textBox2.Text);
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -36,7 +39,32 @@ namespace lab4
 
         private void button3_Click(object sender, EventArgs e)
         {
-            form1.DeleteFilter();
+            
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            if(textBox2.Text == string.Empty)
+            {
+                dataGridView1.DataSource = listform3;
+                return;
+            }
+            BindingList<Complete> temp = new BindingList<Complete>();
+            temp = listform3;
+            string pattern = @"^.*" + textBox2.Text + @".*$";
+            Regex r = new Regex(pattern, RegexOptions.IgnoreCase);
+            BindingList<Complete> filtered = new BindingList<Complete>(temp.Where(x => r.IsMatch(x.ToString())).ToList<Complete>());
+            dataGridView1.DataSource = filtered;
+
+            /*try
+            {
+                string Filter = textBox2.Text.Trim().Replace("'","''");
+                dataGridView1.DataSource = new BindingList<Complete>(listform3.Where(m => m.Contains(Filter)).ToList<Complete>());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }*/
         }
     }
 }

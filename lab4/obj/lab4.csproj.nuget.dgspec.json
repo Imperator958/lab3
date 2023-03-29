@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tlust\\OneDrive\\Pulpit\\Visual Studio\\lab3-Prod\\lab4\\lab4.csproj": {}
+    "C:\\Users\\HP\\OneDrive\\Pulpit\\lab3-Prod\\lab4\\lab4.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tlust\\OneDrive\\Pulpit\\Visual Studio\\lab3-Prod\\lab4\\lab4.csproj": {
+    "C:\\Users\\HP\\OneDrive\\Pulpit\\lab3-Prod\\lab4\\lab4.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tlust\\OneDrive\\Pulpit\\Visual Studio\\lab3-Prod\\lab4\\lab4.csproj",
+        "projectUniqueName": "C:\\Users\\HP\\OneDrive\\Pulpit\\lab3-Prod\\lab4\\lab4.csproj",
         "projectName": "lab4",
-        "projectPath": "C:\\Users\\tlust\\OneDrive\\Pulpit\\Visual Studio\\lab3-Prod\\lab4\\lab4.csproj",
-        "packagesPath": "C:\\Users\\tlust\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tlust\\OneDrive\\Pulpit\\Visual Studio\\lab3-Prod\\lab4\\obj\\",
+        "projectPath": "C:\\Users\\HP\\OneDrive\\Pulpit\\lab3-Prod\\lab4\\lab4.csproj",
+        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\HP\\OneDrive\\Pulpit\\lab3-Prod\\lab4\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\tlust\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

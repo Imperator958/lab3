@@ -13,5 +13,10 @@ namespace lab4
         public string Publisher { get; set; }
         public string Price { get; set; }
         public string Data { get; set; }
+
+        public override string ToString()
+        {
+            return Name + Genre + Publisher + Price + Data;
+        }
     }
 }
